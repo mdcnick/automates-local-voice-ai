@@ -28,7 +28,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. When OpenRouter rate limit is hit, the assistant speaks a verbal fallback instead of going silent
   3. The LLM model used is changeable via environment variable without code changes
   4. docker-compose.yml no longer contains a llama_cpp service; compose up starts cleanly without it
-**Plans**: TBD
+**Plans**: 2 plans
+
+Plans:
+- [ ] 01-01-PLAN.md — OpenRouter LLM wiring + Docker Compose migration
+- [ ] 01-02-PLAN.md — Verbal error fallback for rate limits and failures
 
 ### Phase 2: LightRAG Knowledge
 **Goal**: Agent queries and writes to LightRAG on Coolify so knowledge persists across conversations
@@ -68,7 +72,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Infrastructure Baseline | 0/TBD | Not started | - |
+| 1. Infrastructure Baseline | 0/2 | Not started | - |
 | 2. LightRAG Knowledge | 0/TBD | Not started | - |
 | 3. Calendar Integration | 0/TBD | Not started | - |
 | 4. TTS Voice Selection | 0/TBD | Not started | - |
