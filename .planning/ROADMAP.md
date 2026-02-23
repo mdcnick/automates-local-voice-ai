@@ -72,7 +72,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Infrastructure Baseline | 0/2 | Not started | - |
+| 1. Infrastructure Baseline | 1/2 | In Progress|  |
 | 2. LightRAG Knowledge | 0/TBD | Not started | - |
 | 3. Calendar Integration | 0/TBD | Not started | - |
 | 4. TTS Voice Selection | 0/TBD | Not started | - |

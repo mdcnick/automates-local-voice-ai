@@ -9,10 +9,10 @@ Requirements for this milestone. Each maps to roadmap phases.
 
 ### Infrastructure
 
-- [ ] **INFR-01**: Agent connects to OpenRouter API for LLM inference instead of local llama_cpp
+- [x] **INFR-01**: Agent connects to OpenRouter API for LLM inference instead of local llama_cpp
 - [ ] **INFR-02**: Agent handles OpenRouter rate limits gracefully with verbal fallback on 429 errors
-- [ ] **INFR-03**: llama_cpp Docker service removed from docker-compose.yml
-- [ ] **INFR-04**: LLM model configurable via environment variable (default: Llama 3.3 70B free)
+- [x] **INFR-03**: llama_cpp Docker service removed from docker-compose.yml
+- [x] **INFR-04**: LLM model configurable via environment variable (default: Llama 3.3 70B free)
 
 ### Knowledge & Memory
 
@@ -76,10 +76,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INFR-01 | Phase 1 | Pending |
+| INFR-01 | Phase 1 | Complete |
 | INFR-02 | Phase 1 | Pending |
-| INFR-03 | Phase 1 | Pending |
-| INFR-04 | Phase 1 | Pending |
+| INFR-03 | Phase 1 | Complete |
+| INFR-04 | Phase 1 | Complete |
 | KNOW-01 | Phase 2 | Pending |
 | KNOW-02 | Phase 2 | Pending |
 | KNOW-03 | Phase 2 | Pending |
