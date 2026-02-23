@@ -9,16 +9,33 @@ from livekit.agents import (
     AgentSession,
     JobContext,
     JobProcess,
+    RunContext,
     cli,
     function_tool,
-    RunContext,
 )
-from livekit.plugins import silero, openai
+from livekit.agents.llm import FallbackAdapter
+from livekit.plugins import openai, silero
 from livekit.plugins.turn_detector.multilingual import MultilingualModel
 
 logger = logging.getLogger("agent")
 
+load_dotenv(".env.local", override=True)
 load_dotenv(".env.local")
+
+
+def build_llm():
+    raw = os.getenv("LLM_MODEL", "meta-llama/llama-3.3-70b-instruct:free")
+    chain = [m.strip() for m in raw.split(",")]
+    openrouter_llm = openai.LLM.with_openrouter(
+        model=chain[0], fallback_models=chain[1:]
+    )
+    local_llm = openai.LLM(
+        base_url=os.getenv("LOCAL_LLM_BASE_URL", "http://llama_cpp:11434/v1"),
+        model=os.getenv("LOCAL_LLM_MODEL", "qwen3-4b"),
+        api_key="no-key-needed",
+    )
+    return FallbackAdapter([openrouter_llm, local_llm])
+
 
 class Assistant(Agent):
     def __init__(self) -> None:
@@ -37,7 +54,7 @@ class Assistant(Agent):
         number2: int,
     ) -> dict[str, Any]:
         """Multiply two numbers.
-        
+
         Args:
             number1: The first number to multiply.
             number2: The second number to multiply.
@@ -45,21 +62,22 @@ class Assistant(Agent):
 
         return f"The product of {number1} and {number2} is {number1 * number2}."
 
+
 server = AgentServer()
+
 
 def prewarm(proc: JobProcess):
     proc.userdata["vad"] = silero.VAD.load()
 
+
 server.setup_fnc = prewarm
+
 
 @server.rtc_session()
 async def my_agent(ctx: JobContext):
     ctx.log_context_fields = {
         "room": ctx.room.name,
     }
-
-    llama_model = os.getenv("LLAMA_MODEL", "qwen3-4b")
-    llama_base_url = os.getenv("LLAMA_BASE_URL", "http://llama_cpp:11434/v1")
 
     stt_provider = os.getenv("STT_PROVIDER", "nemotron").lower()
     if stt_provider == "whisper":
@@ -74,10 +92,11 @@ async def my_agent(ctx: JobContext):
     stt_api_key = os.getenv("STT_API_KEY", "no-key-needed")
 
     logger.info(
-        "Starting agent with STT provider=%s model=%s base_url=%s",
+        "Starting agent with STT provider=%s model=%s base_url=%s LLM_MODEL=%s",
         stt_provider,
         stt_model,
         stt_base_url,
+        os.getenv("LLM_MODEL", "meta-llama/llama-3.3-70b-instruct:free"),
     )
 
     session = AgentSession(
@@ -85,20 +104,15 @@ async def my_agent(ctx: JobContext):
             base_url=stt_base_url,
             # base_url="http://localhost:11435/v1", # uncomment for local testing
             model=stt_model,
-            api_key=stt_api_key
+            api_key=stt_api_key,
         ),
-        llm=openai.LLM(
-            base_url=llama_base_url,
-            # base_url="http://localhost:11436/v1", # uncomment for local testing
-            model=llama_model,
-            api_key="no-key-needed"
-        ),
+        llm=build_llm(),
         tts=openai.TTS(
             base_url="http://kokoro:8880/v1",
             # base_url="http://localhost:8880/v1", # uncomment for local testing
             model="kokoro",
             voice="af_nova",
-            api_key="no-key-needed"
+            api_key="no-key-needed",
         ),
         turn_detection=MultilingualModel(),
         vad=ctx.proc.userdata["vad"],
@@ -111,6 +125,7 @@ async def my_agent(ctx: JobContext):
     )
 
     await ctx.connect()
+
 
 if __name__ == "__main__":
     cli.run_app(server)
