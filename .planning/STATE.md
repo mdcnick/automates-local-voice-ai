@@ -12,7 +12,7 @@ See: .planning/PROJECT.md (updated 2026-02-23)
 Phase: 1 of 4 (Infrastructure Baseline)
 Plan: 2 of TBD in current phase
 Status: In progress
-Last activity: 2026-02-24 - Completed quick task 1: lets change nemotron and use deepgram
+Last activity: 2026-02-24 - Completed quick task 2: stop building a local livekit server, use livekit cloud instead
 
 Progress: [█░░░░░░░░░] 10%
 
