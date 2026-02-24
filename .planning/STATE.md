@@ -64,9 +64,10 @@ None yet.
 | # | Description | Date | Commit | Directory |
 |---|-------------|------|--------|-----------|
 | 1 | lets change nemotron and use deepgram | 2026-02-24 | 7ead9d3 | [1-lets-change-nemotron-and-use-deepgram](./quick/1-lets-change-nemotron-and-use-deepgram/) |
+| 2 | stop building a local livekit server, use cloud | 2026-02-24 | 934fb87 | [2-stop-building-a-local-livekit-server-use](./quick/2-stop-building-a-local-livekit-server-use/) |
 
 ## Session Continuity
 
 Last session: 2026-02-23
-Stopped at: Completed quick-1 (Deepgram STT migration)
+Stopped at: Completed quick-2 (LiveKit Cloud migration)
 Resume file: None
