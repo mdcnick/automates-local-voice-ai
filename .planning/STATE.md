@@ -65,6 +65,7 @@ None yet.
 |---|-------------|------|--------|-----------|
 | 1 | lets change nemotron and use deepgram | 2026-02-24 | 7ead9d3 | [1-lets-change-nemotron-and-use-deepgram](./quick/1-lets-change-nemotron-and-use-deepgram/) |
 | 2 | stop building a local livekit server, use cloud | 2026-02-24 | 934fb87 | [2-stop-building-a-local-livekit-server-use](./quick/2-stop-building-a-local-livekit-server-use/) |
+| 3 | fix frontend still connecting to localhost | 2026-02-23 | 848bdc6 | [3-fix-frontend-still-connecting-to-localho](./quick/3-fix-frontend-still-connecting-to-localho/) |
 
 ## Session Continuity
 
