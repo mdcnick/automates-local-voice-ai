@@ -12,7 +12,7 @@ This milestone extends an existing working voice AI (LiveKit + Nemotron STT + Ko
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Infrastructure Baseline** - Swap local llama.cpp for OpenRouter; establish cloud-connected agent with 70B LLM
+- [x] **Phase 1: Infrastructure Baseline** - Swap local llama.cpp for OpenRouter; establish cloud-connected agent with 70B LLM (completed 2026-02-24)
 - [ ] **Phase 2: LightRAG Knowledge** - Connect LightRAG on Coolify; agent retrieves and stores knowledge across sessions
 - [ ] **Phase 3: Calendar Integration** - CalDAV integration for voice-driven calendar read and event creation
 - [ ] **Phase 4: TTS Voice Selection** - Expose Kokoro built-in voices via UI; persist selection within session
@@ -72,7 +72,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Infrastructure Baseline | 1/2 | In Progress|  |
+| 1. Infrastructure Baseline | 2/2 | Complete   | 2026-02-24 |
 | 2. LightRAG Knowledge | 0/TBD | Not started | - |
 | 3. Calendar Integration | 0/TBD | Not started | - |
 | 4. TTS Voice Selection | 0/TBD | Not started | - |

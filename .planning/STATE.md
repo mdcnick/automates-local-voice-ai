@@ -10,9 +10,9 @@ See: .planning/PROJECT.md (updated 2026-02-23)
 ## Current Position
 
 Phase: 1 of 4 (Infrastructure Baseline)
-Plan: 1 of TBD in current phase
+Plan: 2 of TBD in current phase
 Status: In progress
-Last activity: 2026-02-23 — Plan 01-01 complete (OpenRouter LLM migration)
+Last activity: 2026-02-23 — Plan 01-02 complete (verbal error fallback)
 
 Progress: [█░░░░░░░░░] 10%
 
@@ -35,6 +35,7 @@ Progress: [█░░░░░░░░░] 10%
 
 *Updated after each plan completion*
 | Phase 01-infrastructure-baseline P01 | 2min | 2 tasks | 2 files |
+| Phase 01-infrastructure-baseline P02 | 5min | 1 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -46,6 +47,7 @@ Recent decisions affecting current work:
 - OpenRouter for LLM: access to 70B+ models without local GPU — CONFIRMED (01-01)
 - LiveKit Cloud over self-hosted: more reliable, less infra — deferred to v2
 - LightRAG on Coolify: decoupled knowledge layer — pending confirmation
+- [Phase 01-infrastructure-baseline]: session.on('error') pattern for AgentSession verbal fallback — speaks once on recoverable errors, apology on terminal failures
 
 ### Pending Todos
 
@@ -60,5 +62,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-23
-Stopped at: Completed 01-01-PLAN.md (OpenRouter LLM migration + docker-compose profile)
+Stopped at: Completed 01-02-PLAN.md (verbal error fallback)
 Resume file: None
