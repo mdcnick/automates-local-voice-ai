@@ -14,7 +14,7 @@ from livekit.agents import (
     function_tool,
 )
 from livekit.agents.llm import FallbackAdapter
-from livekit.plugins import openai, silero
+from livekit.plugins import deepgram, openai, silero
 from livekit.plugins.turn_detector.multilingual import MultilingualModel
 
 logger = logging.getLogger("agent")
@@ -79,33 +79,23 @@ async def my_agent(ctx: JobContext):
         "room": ctx.room.name,
     }
 
-    stt_provider = os.getenv("STT_PROVIDER", "nemotron").lower()
-    if stt_provider == "whisper":
-        default_stt_base_url = "http://whisper:80/v1"
-        default_stt_model = "Systran/faster-whisper-small"
-    else:
-        default_stt_base_url = "http://nemotron:8000/v1"
-        default_stt_model = "nemotron-speech-streaming"
-
-    stt_base_url = os.getenv("STT_BASE_URL", default_stt_base_url)
-    stt_model = os.getenv("STT_MODEL", default_stt_model)
-    stt_api_key = os.getenv("STT_API_KEY", "no-key-needed")
+    deepgram_model = os.getenv("DEEPGRAM_STT_MODEL", "nova-3")
+    deepgram_language = os.getenv("DEEPGRAM_LANGUAGE", "en")
 
     logger.info(
-        "Starting agent with STT provider=%s model=%s base_url=%s LLM_MODEL=%s",
-        stt_provider,
-        stt_model,
-        stt_base_url,
+        "Starting agent with STT=deepgram model=%s language=%s LLM_MODEL=%s",
+        deepgram_model,
+        deepgram_language,
         os.getenv("LLM_MODEL", "meta-llama/llama-3.3-70b-instruct:free"),
     )
 
+    stt = deepgram.STT(
+        model=deepgram_model,
+        language=deepgram_language,
+    )
+
     session = AgentSession(
-        stt=openai.STT(
-            base_url=stt_base_url,
-            # base_url="http://localhost:11435/v1", # uncomment for local testing
-            model=stt_model,
-            api_key=stt_api_key,
-        ),
+        stt=stt,
         llm=build_llm(),
         tts=openai.TTS(
             base_url="http://kokoro:8880/v1",
@@ -144,12 +134,12 @@ async def my_agent(ctx: JobContext):
             _holding_spoken = False
             session.say("Sorry, I can't answer that right now.")
 
+    await ctx.connect()
+
     await session.start(
         agent=Assistant(),
         room=ctx.room,
     )
-
-    await ctx.connect()
 
 
 if __name__ == "__main__":
