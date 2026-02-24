@@ -119,6 +119,31 @@ async def my_agent(ctx: JobContext):
         preemptive_generation=True,
     )
 
+    # Track whether a holding message has already been spoken for this error episode.
+    # Reset when a terminal (unrecoverable) error fires so that a fresh episode
+    # can speak the holding message again.
+    _holding_spoken = False
+
+    @session.on("error")
+    def on_session_error(event) -> None:
+        nonlocal _holding_spoken
+        error = event.error
+        recoverable = getattr(error, "recoverable", True)
+        logger.error(
+            "Session error (recoverable=%s source=%s): %s",
+            recoverable,
+            type(event.source).__name__,
+            error,
+        )
+        if recoverable:
+            if not _holding_spoken:
+                _holding_spoken = True
+                session.say("Hang on a sec.")
+        else:
+            # Terminal failure — reset flag so next episode can speak again
+            _holding_spoken = False
+            session.say("Sorry, I can't answer that right now.")
+
     await session.start(
         agent=Assistant(),
         room=ctx.room,
