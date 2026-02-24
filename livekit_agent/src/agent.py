@@ -14,6 +14,7 @@ from livekit.agents import (
     function_tool,
 )
 from livekit.agents.llm import FallbackAdapter
+from livekit.agents.tts import FallbackAdapter as TTSFallbackAdapter
 from livekit.plugins import deepgram, openai, silero
 from livekit.plugins.turn_detector.multilingual import MultilingualModel
 
@@ -97,13 +98,15 @@ async def my_agent(ctx: JobContext):
     session = AgentSession(
         stt=stt,
         llm=build_llm(),
-        tts=openai.TTS(
-            base_url="http://kokoro:8880/v1",
-            # base_url="http://localhost:8880/v1", # uncomment for local testing
-            model="kokoro",
-            voice="af_nova",
-            api_key="no-key-needed",
-        ),
+        tts=TTSFallbackAdapter([
+            deepgram.TTS(model="aura-2-en"),
+            openai.TTS(
+                base_url="http://kokoro:8880/v1",
+                model="kokoro",
+                voice="af_nova",
+                api_key="no-key-needed",
+            ),
+        ]),
         turn_detection=MultilingualModel(),
         vad=ctx.proc.userdata["vad"],
         preemptive_generation=True,

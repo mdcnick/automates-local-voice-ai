@@ -18,8 +18,9 @@ RUN apt-get update && \
     && rm -rf /var/lib/apt/lists/*
 
 RUN --mount=type=cache,target=/root/.cache/pip \
-    python3 -m pip install --upgrade pip setuptools wheel \
-    && python3 -m pip install vox-box
+    python3 -m pip install --upgrade pip "setuptools<81" wheel \
+    && echo "setuptools<81" > /tmp/constraints.txt \
+    && PIP_CONSTRAINT=/tmp/constraints.txt python3 -m pip install vox-box
 
 WORKDIR /app
 
