@@ -12,7 +12,7 @@ See: .planning/PROJECT.md (updated 2026-02-23)
 Phase: 1 of 4 (Infrastructure Baseline)
 Plan: 2 of TBD in current phase
 Status: In progress
-Last activity: 2026-02-23 — Plan 01-02 complete (verbal error fallback)
+Last activity: 2026-02-24 - Completed quick task 1: lets change nemotron and use deepgram
 
 Progress: [█░░░░░░░░░] 10%
 
@@ -58,6 +58,12 @@ None yet.
 - Phase 2: LightRAG HTTP API schema needs validation against a live instance before writing client code (exact response field names unconfirmed)
 - Phase 3: Google CalDAV requires OAuth 2.0 (not Basic Auth as of March 2025) — pluggable auth strategy needed upfront
 - Phase 1: OpenRouter free tier (200 req/day) will be exhausted quickly with more than one concurrent tester — decide on paid tier before Phase 2
+
+### Quick Tasks Completed
+
+| # | Description | Date | Commit | Directory |
+|---|-------------|------|--------|-----------|
+| 1 | lets change nemotron and use deepgram | 2026-02-24 | 7ead9d3 | [1-lets-change-nemotron-and-use-deepgram](./quick/1-lets-change-nemotron-and-use-deepgram/) |
 
 ## Session Continuity
 
